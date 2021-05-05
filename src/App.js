@@ -6,6 +6,9 @@ import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import FindIdPage from "./components/views/LoginPage/FindIdPage";
 import FindPasswordPage from "./components/views/LoginPage/FindPasswordPage";
+import ChangePasswordPage from "./components/views/LoginPage/ChangePasswordPage";
+import BoardMainPage from "./components/boardPage/BoardMainPage";
+import BoardUpdatePage from "./components/boardPage/BoardUpdatePage";
 function App() {
 
 //로그인 상태관리
@@ -34,6 +37,9 @@ function App() {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/id" component={FindIdPage} />
           <Route exact path="/pass" component={FindPasswordPage} />
+          <Route exact path="/changepass" component={ChangePasswordPage} />
+          <Route exact path="/boardmain" component={BoardMainPage} />
+          <Route exact path="/boardupdate" component={BoardUpdatePage} />
         </Switch>
       </div>
     </Router>

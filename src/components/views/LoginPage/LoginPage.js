@@ -19,6 +19,14 @@ function LoginPage(props) {
   const onPasswordHanlder = (e) => {
     setPassword(e.currentTarget.value);
   };
+  const onFindidHandler = (e) => {
+     e.preventDefault();
+    props.history.push("/id")
+  }
+   const onFindpasswordHandler = (e) => {
+     e.preventDefault();
+    props.history.push("/pass")
+  }
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -28,17 +36,14 @@ function LoginPage(props) {
     param.append("password", Password);
 
      axios.post('http://localhost:4000/login', param)
-       //dispatch(loginUser(param))
        .then((res) => {
          console.log(res)
         //  console.log('res.data.eamil :: ', res.data.email)
         //  console.log('res.data.msg :: ', res.data.msg)
-
          if (res.data.email === undefined) {
               console.log('======================',res.data.msg)
            alert('입력하신 id 가 일치하지 않습니다.')
          } else if (res.data.email === null) {
-           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
            // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
                 console.log('======================','입력하신 비밀번호 가 일치하지 않습니다.')
                 alert('입력하신 비밀번호 가 일치하지 않습니다.')
@@ -49,8 +54,6 @@ function LoginPage(props) {
                 sessionStorage.setItem('email', Email)
                 alert("로그인 성공")
                 props.history.push("/main")
-
-           
          }
        
         //  if (response.data.length===0) {
@@ -85,9 +88,9 @@ function LoginPage(props) {
           type="submit"
         >
           Login</button>
-        <button>아이디 찾기</button>
-        <button>비밀번호 찾기</button>
       </form>
+      <button onClick={onFindidHandler}>아이디 찾기</button>
+      <button onClick={onFindpasswordHandler}>비밀번호 찾기</button>
       {/* <div><h1>{ LoginStatus }</h1></div> */}
     </div>
   );

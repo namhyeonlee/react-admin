@@ -21,6 +21,7 @@ var connection = mysql.createConnection({
     insecureAuth: true
 });
 
+
 connection.connect();
 
 connection.query('SELECT * FROM user.new_table', function(err, results, fields) {
@@ -119,7 +120,127 @@ app.post('/checkid', (req, res) => {
     
 })
 
+//이메일 찾기
+app.post('/id', (req, res) => {
+    let sql ="select email from `new_table` WHERE name=? AND tel=?"
+    let name= req.body.name;
+    let tel= req.body.tel;
+    let params = [name, tel]
+    let ret =[];
+  
+
+    connection.query(sql, params, (err, result) => {
+        if (!err) {
+             console.log("result :", result);
+            ret=result[0];
+                res.send(ret);
+        } else {
+            console.log(`query err: ${err}`);
+        }
+    })
+    
+})
+
+
+//사용자 비밀번호 찾기
+app.post('/pass', (req, res) => {
+   
+    let sql = "select password from `new_table` WHERE name=? AND email=?"
+    
+    let email= req.body.email;
+    let name= req.body.name;
+    let params = [name, email]
+    let ret =[];
+  
+
+    connection.query(sql, params, (err, result) => {
+        if (!err) {
+            console.log("email :", email);
+            console.log("name :", name);
+            ret = result[0];
+            console.log("result :", result);
+                res.send(ret);
+        } else {
+            console.log(`query err: ${err}`);
+        }
+    })
+});
+
+//비밀번호 변경
+app.post('/change_pw', (req, res) => {
+
+     let sql = 'UPDATE new_table SET password=? WHERE password=? and email=?';
+    
+    let email = req.body.email;
+    let password = req.body.password;
+    let changePass = req.body.changePass;
+    let params = [changePass, password,email]
+
+    connection.query(sql, params, (err, result) => {
+        if (err) throw err;
+        res.send('User updated in database with password: ' + req.body.changePass);
+        
+    })
+
+    // connection.query("UPDATE new_table SET password='" + req.body.password + "' where email='" + req.body.email + "'",
+    //     (err, result) => {
+    //         if (err) throw err;
+    //         res.send('User updated in database with password: ' + req.body.password);
+    //     })
+
+})
+
+
+//게시판
+
+app.get('/boardlist', (req, res) => {
+    const sql = 'SELECT idx, title, content, writer, write_date FROM board'
+    connection.query(sql, (err, data) => {
+        if (!err) {
+            res.send(data);
+        } else {
+            res.send(err)
+        }
+    })
+})
+
+app.post('/boardinsert', (req, res) => {
+    const sql = 'INSERT INTO board (title, content, writer, write_date) VALUES (?,?,?,?)';
+    const title = req.body.title;
+    const content = req.body.content;
+    const writer = req.body.writer;
+    const write_date = req.body.write_date;
+ 
+    params = [title, content, writer, write_date]
+    
+    connection.query(sql, params, (err, result) => {
+        if (!err) {
+           res.send(result)
+        } else {
+            res.send(err)
+       }
+    })
+})
+
+app.post('/boardupdate', (req, res) => {
+    const sql = 'UPDATE `board` SET `title` = ?, `content` = ?, `writer` = ?, `write_date` = ? WHERE `idx` = ?';
+    const title = req.body.title;
+    const content = req.body.content;
+    const writer = req.body.writer;
+    const write_date = req.body.write_date;
+    const idx = req.body.idx;
+    params = [title, content, writer, write_date, idx]
+    
+    connection.query(sql, params, (err, result) => {
+        if (!err) {
+           res.send(data)
+        } else {
+            res.send(err)
+       }
+    })
+})
 
  app.listen(port, ()=>{
     console.log(`Connect at http://localhost:${port}`);
-})
+ })
+
