@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
 
-function BoardUpdatePage() {
+function BoardInsertPage() {
     const today = new Date().toISOString().substr(0, 10).replace('T', '');
     const [Title, setTitle] = useState("");
     const [Writer, setWriter] = useState('');
@@ -65,4 +65,4 @@ function BoardUpdatePage() {
     )
 }
 
-export default withRouter(BoardUpdatePage);
+export default withRouter(BoardInsertPage);

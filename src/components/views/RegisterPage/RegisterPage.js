@@ -49,9 +49,9 @@ function RegisterPage(props) {
     const param = new URLSearchParams;
     param.append("email", Email);
     param.append("password", Password);
-            param.append("name", Name);
-            param.append("age", Age);
-            param.append("gender",Gender);
+    param.append("name", Name);
+    param.append("age", Age);
+    param.append("gender",Gender);
             
     
     if (Password === ConfirmPasword) {

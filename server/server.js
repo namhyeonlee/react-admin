@@ -182,11 +182,7 @@ app.post('/change_pw', (req, res) => {
         
     })
 
-    // connection.query("UPDATE new_table SET password='" + req.body.password + "' where email='" + req.body.email + "'",
-    //     (err, result) => {
-    //         if (err) throw err;
-    //         res.send('User updated in database with password: ' + req.body.password);
-    //     })
+  
 
 })
 
@@ -199,6 +195,23 @@ app.get('/boardlist', (req, res) => {
         if (!err) {
             res.send(data);
         } else {
+            res.send(err)
+        }
+    })
+})
+
+
+
+//게시판 상세페이지
+app.get('/postView', (req, res) => {
+    const sql = 'SELECT idx, title, content, writer, write_date FROM `board` WHERE `idx` = ?';
+    const idx = req.query.idx
+    connection.query(sql, idx, (err, data) => {
+        if (!err) {
+            res.send(data);
+            
+        } else {
+
             res.send(err)
         }
     })
@@ -222,21 +235,37 @@ app.post('/boardinsert', (req, res) => {
     })
 })
 
-app.post('/boardupdate', (req, res) => {
-    const sql = 'UPDATE `board` SET `title` = ?, `content` = ?, `writer` = ?, `write_date` = ? WHERE `idx` = ?';
+//게시판 수정
+app.post('/boardupdate', (req, res) => { 
+    const sql = 'UPDATE `board` SET `title` = ?, `content` = ?,`write_date`=? WHERE `idx` = ?';
     const title = req.body.title;
     const content = req.body.content;
-    const writer = req.body.writer;
     const write_date = req.body.write_date;
     const idx = req.body.idx;
-    params = [title, content, writer, write_date, idx]
+    params = [title, content,write_date, idx]
     
-    connection.query(sql, params, (err, result) => {
+    connection.query(sql, params, (err, data) => {
         if (!err) {
+            console.log("write_date:", write_date)
+           
            res.send(data)
         } else {
             res.send(err)
        }
+    })
+})
+
+//게시판 삭제 
+app.get('/boardDelete', (req, res) => {
+    const sql = 'DELETE FROM `board` WHERE `idx` = ?';
+    const idx = req.query.idx;
+
+    connection.query(sql, idx, (err, data) => {
+        if(!err) {
+            res.send(data)
+        } else {
+            res.send(err)
+        }
     })
 })
 

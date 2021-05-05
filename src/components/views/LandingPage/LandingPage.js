@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import BoardMainPage from "../../boardPage/BoardMainPage";
 
 function LandingPage(props) {
   
@@ -16,7 +17,7 @@ function LandingPage(props) {
   return (
     <div
       style={{
-        display: "flex",
+       
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
@@ -24,6 +25,7 @@ function LandingPage(props) {
       }}>
       <h2>시작 페이지</h2>
       <button onClick={onLogout}>로그아웃</button>
+      <BoardMainPage/>
     </div>
   );
 }

@@ -8,7 +8,9 @@ import FindIdPage from "./components/views/LoginPage/FindIdPage";
 import FindPasswordPage from "./components/views/LoginPage/FindPasswordPage";
 import ChangePasswordPage from "./components/views/LoginPage/ChangePasswordPage";
 import BoardMainPage from "./components/boardPage/BoardMainPage";
-import BoardUpdatePage from "./components/boardPage/BoardUpdatePage";
+import BoardInsertPage from "./components/boardPage/BoardInsertPage";
+import PostView from "./components/boardPage/PostView";
+import BoardUpdate from "./components/boardPage/BoardUpdate";
 function App() {
 
 //로그인 상태관리
@@ -39,7 +41,9 @@ function App() {
           <Route exact path="/pass" component={FindPasswordPage} />
           <Route exact path="/changepass" component={ChangePasswordPage} />
           <Route exact path="/boardmain" component={BoardMainPage} />
-          <Route exact path="/boardupdate" component={BoardUpdatePage} />
+          <Route exact path='/postView/:no' component={PostView} />
+          <Route exact path="/boardInsert" component={BoardInsertPage} />
+          <Route exact path='/boardUpdate/:no' component={BoardUpdate} />
         </Switch>
       </div>
     </Router>
