@@ -14,7 +14,8 @@ import BoardUpdate from "./components/boardPage/BoardUpdate";
 function App() {
 
 //로그인 상태관리
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(false);
+
 
   useEffect(() => {
     if (sessionStorage.getItem('email') === null) {
@@ -25,7 +26,7 @@ function App() {
       // 로그인 상태 변경
       setIsLogin(true)
       console.log('isLogin ?? :: ', isLogin)
-      
+     
     }
   },[])
 
@@ -33,8 +34,8 @@ function App() {
     <Router>
       <div>
         <Switch>
-          {isLogin ? <Route exact path="/main" render={() => <LandingPage isLogin={isLogin}/>} />: <Route exact path="/login" component={LoginPage} />}
-         {/* <Route exact path="/" component={LandingPage} /> */}
+          {/* {isLogin ? <Route exact path="/main" render={() => <LandingPage isLogin={isLogin}/>} />: <Route exact path="/login" component={LoginPage} />} */}
+         <Route exact path="/" render={()=><LandingPage isLogin={isLogin}/>} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/id" component={FindIdPage} />

@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import axios from 'axios'
 
 
-function ChangePasswordPage() {
+function ChangePasswordPage(props) {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [ChangePassword, setChangePassword] = useState("");
@@ -36,6 +36,8 @@ function ChangePasswordPage() {
         axios.post('http://localhost:4000/change_pw', param)
                  .then((res) => {
                    console.log(res)
+                   alert("비밀번호가 변경되었습니다")
+                   props.history.push("/login")
                  })
 
         // if (ChangePassword !== ConfirmPasword) {

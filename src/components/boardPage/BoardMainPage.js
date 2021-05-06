@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from 'axios'
-import boardupdate from './BoardInsertPage'
 
 function BoardMainPage(props) {
-    
+     const isLogin = props.isLogin
     const [InitData, setInitData] = useState([{
         inputData: {
             idx: '',
@@ -40,10 +39,7 @@ function BoardMainPage(props) {
     }, [])
 
 
-    const onUpdatePageHandler = (e) => {
-        e.preventDefault();
-        props.history.push("/boardInsert")
-    }
+   
     return (
         <div>
             <h2>게시판</h2>
@@ -51,9 +47,9 @@ function BoardMainPage(props) {
                 <thead>
                 <th>index</th>
                 <th>title</th>
+                <th>content</th>
                 <th>writer</th>
                 <th>date</th>
-
                 </thead>
                 <tbody>
                     <tr>
@@ -63,16 +59,20 @@ function BoardMainPage(props) {
                          <td>
                              <Link to={`/postView/${rowData.idx}`}>{rowData.idx}</Link>
                         </td>
-                         <td>{rowData.title}</td>
-                         <td>{rowData.writer}</td>
-                        <td>{rowData.write_date}</td>
+                       
+                        <td>{rowData.title}</td>
+                        <td>{rowData.content}</td>
+                         <td>{rowData.writer}</td> 
+                          <td>{rowData.write_date}</td>
+                        
                         </tr>
                 ))}
                     </tr>
                 </tbody>
                 
             </table>
-            <button onClick={onUpdatePageHandler}>글쓰기</button>
+            {isLogin?<button><Link to="/boardInsert">글쓰기</Link></button>:null}
+            
         </div>
     )
 }

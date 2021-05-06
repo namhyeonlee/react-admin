@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
 
-function BoardInsertPage() {
+function BoardInsertPage(props) {
     const today = new Date().toISOString().substr(0, 10).replace('T', '');
     const [Title, setTitle] = useState("");
     const [Writer, setWriter] = useState('');
     const [Content, setContent] = useState('');
+   
 
-    console.log(today)
+
+    useEffect(() => {
+        setWriter(sessionStorage.getItem('email'))
+        
+    }, [])
+    
 
     //idx값 받아오기
+    
 
     const onTitleHandler = (e) => {
         setTitle(e.currentTarget.value)
     }
-    const onWriterHandler = (e) => {
-        setWriter(e.currentTarget.value)
-    }
+    // const onWriterHandler = (e) => {
+    //     setWriter(e.currentTarget.value)
+    // }
     const onContentHandler = (e) => {
         setContent(e.currentTarget.value)
     }
@@ -33,7 +40,9 @@ function BoardInsertPage() {
         
         axios.post('http://localhost:4000/boardinsert', param)
             .then((res) => {
-            console.log(res)
+                alert("글이 등록되었습니다")
+                props.history.push("/")
+                
         })
     }
 
@@ -55,7 +64,7 @@ function BoardInsertPage() {
                 <label>title</label>
                 <input value={Title} onChange={onTitleHandler}/>
                 <label>writer</label>
-                <input value={Writer} onChange={onWriterHandler}/>
+                <input value={Writer}/>
                 <label>content</label>
                 <textarea value={Content} onChange={onContentHandler}/>
                 <button type="submit" style={{margin:"100px"}}>등록</button>

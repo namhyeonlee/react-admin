@@ -44,7 +44,9 @@ function Boardupdate({ match }) {
         
         await axios.post('http://localhost:4000/boardupdate/', param)
         .then((res) => {
-                   console.log(res)
+            console.log(res)
+            alert("수정완료되었습니다")
+            document.location.href='/'
         })
 
     }

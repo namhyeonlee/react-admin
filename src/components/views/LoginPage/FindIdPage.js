@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter,Link } from "react-router-dom";
 import axios from 'axios'
 
 
@@ -53,8 +53,11 @@ function FindIdPage() {
         <button type="submit" >아이디 찾기</button>        
             </form>
             <br />
-            {text? <div><h1>아이디:{FindId}</h1></div> : null}
-            {/* <div><h1>아이디:{FindId}</h1></div> */}
+            {text ? (<div>
+                <h1>아이디:{FindId}</h1>
+                <button><Link to="/login">로그인하기</Link></button>
+            </div>) : null}
+           
         </div>
     )
 }

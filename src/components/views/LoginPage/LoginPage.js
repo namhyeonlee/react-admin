@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import {loginUser} from '../../../store/actions/UserAction'
 import axios from 'axios'
@@ -38,30 +38,20 @@ function LoginPage(props) {
      axios.post('http://localhost:4000/login', param)
        .then((res) => {
          console.log(res)
-        //  console.log('res.data.eamil :: ', res.data.email)
-        //  console.log('res.data.msg :: ', res.data.msg)
          if (res.data.email === undefined) {
-              console.log('======================',res.data.msg)
            alert('입력하신 id 가 일치하지 않습니다.')
          } else if (res.data.email === null) {
            // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
-                console.log('======================','입력하신 비밀번호 가 일치하지 않습니다.')
                 alert('입력하신 비밀번호 가 일치하지 않습니다.')
 
          } else if (res.data.email === Email){
            // id, pw 모두 일치 userId = userId1, msg = undefined
-                console.log('======================','로그인 성공')
                 sessionStorage.setItem('email', Email)
                 alert("로그인 성공")
-                props.history.push("/main")
+                props.history.push("/")
          }
        
-        //  if (response.data.length===0) {
-        //    setLoginStatus("this is wrong")
-        //  } else {
-        //    setLoginStatus(response.data[0].email)
-        //  }
-         
+  
       })
 
   };
@@ -89,8 +79,11 @@ function LoginPage(props) {
         >
           Login</button>
       </form>
-      <button onClick={onFindidHandler}>아이디 찾기</button>
-      <button onClick={onFindpasswordHandler}>비밀번호 찾기</button>
+      <div style={{ display: "flex", flexDirection: "column"}}>
+       <button onClick={onFindidHandler}>아이디 찾기</button>
+        <button onClick={onFindpasswordHandler}>비밀번호 찾기</button>
+        <button><Link to="/">home</Link></button>
+      </div>
       {/* <div><h1>{ LoginStatus }</h1></div> */}
     </div>
   );

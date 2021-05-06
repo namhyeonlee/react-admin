@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import BoardMainPage from "../../boardPage/BoardMainPage";
 
 function LandingPage(props) {
@@ -24,8 +24,13 @@ function LandingPage(props) {
         height: "100vh",
       }}>
       <h2>시작 페이지</h2>
-      <button onClick={onLogout}>로그아웃</button>
-      <BoardMainPage/>
+      {isLogin ?
+       
+          <button onClick={onLogout}>로그아웃</button>
+      
+        : <button><Link to="/login">로그인</Link></button>}
+      <button><Link to="/register">회원가입</Link></button>
+      <BoardMainPage isLogin={isLogin}/>
     </div>
   );
 }
