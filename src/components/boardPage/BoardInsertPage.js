@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link} from "react-router-dom";
 import axios from 'axios';
+import { json } from "body-parser";
 
 function BoardInsertPage(props) {
     const today = new Date().toISOString().substr(0, 10).replace('T', '');
     const [Title, setTitle] = useState("");
     const [Writer, setWriter] = useState('');
     const [Content, setContent] = useState('');
+    const [Lastidx, setLastidx] = useState('');
    
 
 
@@ -16,8 +18,7 @@ function BoardInsertPage(props) {
     }, [])
     
 
-    //idx값 받아오기
-    
+  
 
     const onTitleHandler = (e) => {
         setTitle(e.currentTarget.value)
@@ -50,15 +51,16 @@ function BoardInsertPage(props) {
     return (
         <div
         style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh",
+                display: "flex",
+                flexDirection: "column" ,
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "100vh",
       }}
         >
             <form
-                style={{ display: "flex", flexDirection: "column" }}
+                style={{ display: "flex", flexDirection: "column", }}
                 onSubmit={onSubmitHandler}
             >
                 <label>title</label>
@@ -67,9 +69,12 @@ function BoardInsertPage(props) {
                 <input value={Writer}/>
                 <label>content</label>
                 <textarea value={Content} onChange={onContentHandler}/>
-                <button type="submit" style={{margin:"100px"}}>등록</button>
+                <button type="submit" style={{ marginTop: "50px", width: "130px" }}>등록</button>
+                <button type="button" style={{marginTop: "10px", width:"130px"}}><Link to="/">목록</Link></button>
             </form>
             
+            
+         
         </div>
     )
 }

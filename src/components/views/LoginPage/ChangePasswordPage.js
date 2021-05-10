@@ -8,6 +8,7 @@ function ChangePasswordPage(props) {
     const [Password, setPassword] = useState("");
     const [ChangePassword, setChangePassword] = useState("");
     const [ConfirmPasword, setConfirmPasword] = useState("");
+    const [CurrentPassword, setCurrentPassword] = useState("");
     
 
     const onEmailHandler = (e) => {
@@ -33,26 +34,24 @@ function ChangePasswordPage(props) {
         param.append("password", Password);
         param.append("changePass", ChangePassword);
 
-        axios.post('http://localhost:4000/change_pw', param)
+      
+      
+      if (ChangePassword === ConfirmPasword) {
+        if (isPassword(ChangePassword)) {
+          axios.post('http://localhost:4000/change_pw', param)
                  .then((res) => {
                    console.log(res)
                    alert("비밀번호가 변경되었습니다")
                    props.history.push("/login")
                  })
-
-        // if (ChangePassword !== ConfirmPasword) {
-           
-        //     if (isPassword(ChangePassword)) {
-        //          axios.post('http://localhost:4000/change_pw', param)
-        //          .then((res) => {
-        //            console.log(res)
-        //          })
-        //     }
-        // }
+        }
+      }
+            
+        }
         
-    }
+   
 
-    function isPassword(asValue) {
+    function isPassword(asValue) {  
     var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/; //  8 ~ 10자 영문, 숫자 조합
     if (!regExp.test(asValue)) {
       alert("비밀번호 형식에 맞지 않습니다")
@@ -69,7 +68,8 @@ function ChangePasswordPage(props) {
         }}>
         
             <form onSubmit={onSubmitHandler}
-                  style={{ display: "flex", flexDirection: "column" }}>
+          style={{ display: "flex", flexDirection: "column" }}>
+          <h2>비밀번호 변경하기</h2>
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler} />
         <label>현재 비밀번호</label>

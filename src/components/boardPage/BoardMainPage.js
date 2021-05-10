@@ -45,6 +45,7 @@ function BoardMainPage(props) {
             <h2>게시판</h2>
             <table>
                 <thead>
+                
                 <th>index</th>
                 <th>title</th>
                 <th>content</th>
@@ -52,12 +53,12 @@ function BoardMainPage(props) {
                 <th>date</th>
                 </thead>
                 <tbody>
-                    <tr>
+                  
                 
-                        {InitData.map((rowData) => (
+                        {InitData.map((rowData, i) => (
                        <tr>
                          <td>
-                             <Link to={`/postView/${rowData.idx}`}>{rowData.idx}</Link>
+                            <Link to={`/postView/${rowData.idx}`}>{i}</Link>
                         </td>
                        
                         <td>{rowData.title}</td>
@@ -67,11 +68,11 @@ function BoardMainPage(props) {
                         
                         </tr>
                 ))}
-                    </tr>
+                   
                 </tbody>
                 
             </table>
-            {isLogin?<button><Link to="/boardInsert">글쓰기</Link></button>:null}
+            {isLogin?<button style={{marginTop:"10px"}}><Link to="/boardInsert">글쓰기</Link></button>:null}
             
         </div>
     )

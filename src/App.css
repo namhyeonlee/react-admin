@@ -2,14 +2,17 @@
   text-align: center;
 }
 
-table
-{
-  border: 1px solid black;
-}
 table{
+  border: 1px solid black;
+  border-collapse: collapse;
   width: 1200px;
   height: 500px;
 }
+th,td{
+  border: 1px solid #444444;
+  padding: 10px;
+}
+ 
 
 textarea{
   width: 700px;

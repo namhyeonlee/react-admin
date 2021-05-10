@@ -42,19 +42,25 @@ function FindIdPage() {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",  
-        height: "100vh",
+            height: "100vh",
+        
         }}>
-        <form onSubmit={onSubmitHandler}>
-        <label>Name</label>
+
+            <form
+                onSubmit={onSubmitHandler}
+                style={{ display: "flex", flexDirection: "column" }}
+            >
+                <h2>아이디 찾기</h2>
+        <label>이름</label>
         <input type="text" value={Name} onChange={onNameHandler} />
-        <label>tel</label>
+        <label>전화번호</label>
        <input type="number" value={Tel} onChange={onTelHandler} />
         <br/>
         <button type="submit" >아이디 찾기</button>        
             </form>
             <br />
             {text ? (<div>
-                <h1>아이디:{FindId}</h1>
+                <h3>아이디:{FindId}</h3>
                 <button><Link to="/login">로그인하기</Link></button>
             </div>) : null}
            

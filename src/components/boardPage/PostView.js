@@ -34,6 +34,7 @@ function PostView({ match }, props) {
     })
    
     const onRemoveHandler = async (e) => {
+        window.confirm("정말 삭제하시겠습니까?")
         await axios.get('http://localhost:4000/boardDelete/', {
             params: {
                     'idx': idx
@@ -47,22 +48,34 @@ function PostView({ match }, props) {
     }
 
     return (
-        <div>
+        <div style={{
+            width: "100%",
+            height: "100vh",
+            margin: "auto"
+        }}> 
+           
             <h1>상세페이지</h1>
-            <h3>title : {title} </h3>
-            <p>content: {content}</p>
-            <p>writer: {writer}</p>
+            <form style={{ display: "flex", flexDirection: "column", width: "50%" }}>
+                <label>title</label>
+                <input type="text" value={title} />
+                <label>content</label>
+                <textarea type="text" value={content} />
+                <label>writer</label>
+                <input type="text"value={writer}/>
+            </form>
+            
             {user === writer ? (
-                <div>
-                <button>
+                <div style={{marginTop:"20px"}}> 
+                    <button style={{ marginRight:"10px"}}>
                 <Link to={`/boardUpdate/${idx}`}>수정하기</Link>
-                    </button>
-                <button onClick={onRemoveHandler}>삭제하기</button>
+                </button>
+                    <button onClick={onRemoveHandler} style={{ marginRight:"10px"}}>삭제하기</button>
+                    <button><Link to="/">목록</Link></button>
                 </div>
             ) :
-                null
-            }
-            
+                <button style={{marginTop:"20px"}}><Link to="/" >목록</Link></button>
+                }
+              
             
         </div>
         

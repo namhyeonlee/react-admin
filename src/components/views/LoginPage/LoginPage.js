@@ -39,7 +39,7 @@ function LoginPage(props) {
        .then((res) => {
          console.log(res)
          if (res.data.email === undefined) {
-           alert('입력하신 id 가 일치하지 않습니다.')
+           alert('입력하신 아이디가 일치하지 않습니다.')
          } else if (res.data.email === null) {
            // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
                 alert('입력하신 비밀번호 가 일치하지 않습니다.')
@@ -61,6 +61,7 @@ function LoginPage(props) {
     <div
       style={{
         display: "flex",
+        flexDirection:"column",
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
@@ -76,15 +77,16 @@ function LoginPage(props) {
         <br />
         <button
           type="submit"
+          style={{marginBottom:"10px"}}
         >
           Login</button>
       </form>
-      <div style={{ display: "flex", flexDirection: "column"}}>
-       <button onClick={onFindidHandler}>아이디 찾기</button>
-        <button onClick={onFindpasswordHandler}>비밀번호 찾기</button>
-        <button><Link to="/">home</Link></button>
-      </div>
-      {/* <div><h1>{ LoginStatus }</h1></div> */}
+      <div style={{display:"block"}}>
+
+      <button onClick={onFindidHandler} style={{marginBottom:"10px", display:"block",  width:"153px"}}>아이디 찾기</button>
+        <button onClick={onFindpasswordHandler} style={{marginBottom:"10px", display:"block",  width:"153px"}}>비밀번호 찾기</button>
+        <button style={{ width:"153px"}}><Link to="/">home</Link></button>
+        </div>
     </div>
   );
 }

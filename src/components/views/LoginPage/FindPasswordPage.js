@@ -36,7 +36,9 @@ function FindPasswordPage(props) {
                 if (res.data === "") {
                     alert("없는 정보입니다");
                 } else {
+                    console.log(res.data)
                     setFindPassword(res.data.password)
+                    console.log(FindPassword)
                     setText(true)
                 }
             
@@ -55,17 +57,18 @@ function FindPasswordPage(props) {
             <form onSubmit={onSubmitHandler}
                 style={{ display: "flex", flexDirection: "column" }}
             >
+        <h2>비밀번호 찾기</h2>
         <label>Name</label>
         <input type="text" value={Name} onChange={onNameHandler} />
         <label>email</label>
        <input type="email" value={Email} onChange={onEmailHandler} />
         <br/>
                 <button type="submit" >비밀번호 찾기</button>
-        <button onClick={onChangepasswordHandler}>비밀번호 변경</button>            
+        <button onClick={onChangepasswordHandler} style={{marginTop:"10px"}}>비밀번호 변경</button>            
             </form>
             <br />
             {text ? <div>
-                <h1>비밀번호:{FindPassword}</h1>
+                <h3>비밀번호: {FindPassword}</h3>
                 
             </div> : null}
             <br />

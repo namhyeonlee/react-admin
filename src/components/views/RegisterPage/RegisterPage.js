@@ -37,7 +37,9 @@ function RegisterPage(props) {
     setAge(e.currentTarget.value);
   };
     const onGenderHandler = (e) => {
-    setGender(e.currentTarget.value);
+      //setGender(e.currentTarget.value);
+      setGender(e.target.value)
+      
     };
   const onTelHandler = (e) => {
     setTel(e.currentTarget.value);
@@ -165,9 +167,12 @@ function RegisterPage(props) {
         />
         <label>Age</label>
         <input type="number" value={Age} onChange={onAgeHandler} />
-
+        <div>
         <label>Gender</label>
-        <input type="text" value={Gender} onChange={onGenderHandler} />
+        <input type="radio" name="gender" id="women" value="여" onChange={onGenderHandler}/>여
+				<input type="radio" name="gender" id="men" value="남" onChange={onGenderHandler} />남
+          </div>
+       
 
          <label>tel</label>
         <input type="number" value={Tel} onChange={onTelHandler} />

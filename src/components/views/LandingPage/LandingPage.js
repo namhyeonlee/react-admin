@@ -23,13 +23,21 @@ function LandingPage(props) {
         width: "100%",
         height: "100vh",
       }}>
-      <h2>시작 페이지</h2>
+      <div style={{display:"flex", justifyContent:"space-between"}}>
+        <h2>시작 페이지</h2>
+        <div style={{marginLeft:"30px"}}>
       {isLogin ?
        
           <button onClick={onLogout}>로그아웃</button>
       
-        : <button><Link to="/login">로그인</Link></button>}
-      <button><Link to="/register">회원가입</Link></button>
+        : (
+          <>
+            <button style={{marginRight:"20px"}}><Link to="/login">로그인</Link></button>
+            <button><Link to="/register">회원가입</Link></button>
+            </>
+            )}
+          </div>
+      </div>
       <BoardMainPage isLogin={isLogin}/>
     </div>
   );

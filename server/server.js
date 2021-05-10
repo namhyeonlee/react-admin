@@ -181,9 +181,6 @@ app.post('/change_pw', (req, res) => {
         res.send('User updated in database with password: ' + req.body.changePass);
         
     })
-
-  
-
 })
 
 
@@ -217,6 +214,7 @@ app.get('/postView', (req, res) => {
     })
 })
 
+//게시판 작성
 app.post('/boardinsert', (req, res) => {
     const sql = 'INSERT INTO board (title, content, writer, write_date) VALUES (?,?,?,?)';
     const title = req.body.title;
@@ -234,6 +232,8 @@ app.post('/boardinsert', (req, res) => {
        }
     })
 })
+
+
 
 //게시판 수정
 app.post('/boardupdate', (req, res) => { 
@@ -268,6 +268,11 @@ app.get('/boardDelete', (req, res) => {
         }
     })
 })
+
+
+
+
+//last idx 가지공기
 
  app.listen(port, ()=>{
     console.log(`Connect at http://localhost:${port}`);

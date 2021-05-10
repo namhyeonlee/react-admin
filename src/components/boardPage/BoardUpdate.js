@@ -42,6 +42,7 @@ function Boardupdate({ match }) {
         param.append("idx", no);
         param.append('write_date', today);
         
+        window.confirm("수정하시겠습니까?")
         await axios.post('http://localhost:4000/boardupdate/', param)
         .then((res) => {
             console.log(res)
@@ -67,11 +68,13 @@ function Boardupdate({ match }) {
             <label>content</label>
                 <textarea type="text" value={content} onChange={ onContentHandler}/>
             <p>writer: { writer}</p>
-            <button type="submit">
+                <button type="submit"
+                style={{width:"130px"}}
+                >
                수정하기
             </button>   
             </form>
-            <button>
+            <button style={{width:"130px", marginTop:"10px"}}>
                 <Link to="/boardmain">목록으로 돌아가기</Link>
             </button>
         </div>
