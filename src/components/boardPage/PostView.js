@@ -34,8 +34,9 @@ function PostView({ match }, props) {
     })
    
     const onRemoveHandler = async (e) => {
-        window.confirm("정말 삭제하시겠습니까?")
-        await axios.get('http://localhost:4000/boardDelete/', {
+       
+        if (window.confirm("정말 삭제하시겠습니까?")) {
+             await axios.get('http://localhost:4000/boardDelete/', {
             params: {
                     'idx': idx
             }
@@ -45,6 +46,9 @@ function PostView({ match }, props) {
                 alert("삭제되었습니다")
                 document.location.href='/'
         })
+            
+        }
+       
     }
 
     return (

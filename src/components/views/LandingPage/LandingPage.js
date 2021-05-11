@@ -5,6 +5,7 @@ import BoardMainPage from "../../boardPage/BoardMainPage";
 function LandingPage(props) {
   
   const isLogin = props.isLogin
+  
   const onLogout = (e) => {
     e.preventDefault();
     	// sessionStorage 에 user_id 로 저장되어있는 아이템을 삭제한다
@@ -25,8 +26,9 @@ function LandingPage(props) {
       }}>
       <div style={{display:"flex", justifyContent:"space-between"}}>
         <h2>시작 페이지</h2>
-        <div style={{marginLeft:"30px"}}>
-      {isLogin ?
+        <div style={{ marginLeft: "30px" }}>
+          
+      {sessionStorage.getItem('email') ?
        
           <button onClick={onLogout}>로그아웃</button>
       

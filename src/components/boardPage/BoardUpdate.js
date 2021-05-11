@@ -67,12 +67,8 @@ function Boardupdate({ match }) {
                 <input type="text" value={ title} onChange={onTitleHandler}/>
             <label>content</label>
                 <textarea type="text" value={content} onChange={ onContentHandler}/>
-            <p>writer: { writer}</p>
-                <button type="submit"
-                style={{width:"130px"}}
-                >
-               수정하기
-            </button>   
+                <p>writer: {writer}</p>
+                {sessionStorage.getItem('email')?<button type="submit" style={{width:"130px"}}>수정하기</button>:null}
             </form>
             <button style={{width:"130px", marginTop:"10px"}}>
                 <Link to="/boardmain">목록으로 돌아가기</Link>

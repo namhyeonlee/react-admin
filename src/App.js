@@ -16,12 +16,12 @@ function App() {
 //로그인 상태관리
   const [isLogin, setIsLogin] = useState(false);
 
-
   useEffect(() => {
-   
+
     if (sessionStorage.getItem('email')) {
-  setIsLogin(true)
-}
+      setIsLogin(true)
+      
+} 
 
   },[])
 
@@ -29,8 +29,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          {/* {isLogin ? <Route exact path="/main" render={() => <LandingPage isLogin={isLogin}/>} />: <Route exact path="/login" component={LoginPage} />} */}
-         <Route exact path="/" render={()=><LandingPage isLogin={isLogin}/>} />
+          <Route exact path="/" render={()=><LandingPage isLogin={isLogin}/>} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/id" component={FindIdPage} />

@@ -54,7 +54,6 @@ function BoardMainPage(props) {
                 </thead>
                 <tbody>
                   
-                
                         {InitData.map((rowData, i) => (
                        <tr>
                          <td>
@@ -72,7 +71,7 @@ function BoardMainPage(props) {
                 </tbody>
                 
             </table>
-            {isLogin?<button style={{marginTop:"10px"}}><Link to="/boardInsert">글쓰기</Link></button>:null}
+            {sessionStorage.getItem('email')?<button style={{marginTop:"10px"}}><Link to="/boardInsert">글쓰기</Link></button>:null}
             
         </div>
     )

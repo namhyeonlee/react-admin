@@ -187,7 +187,7 @@ app.post('/change_pw', (req, res) => {
 //게시판
 
 app.get('/boardlist', (req, res) => {
-    const sql = 'SELECT idx, title, content, writer, write_date FROM board'
+    const sql = 'SELECT idx, title, content, writer, write_date FROM board order by idx desc'
     connection.query(sql, (err, data) => {
         if (!err) {
             res.send(data);

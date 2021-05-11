@@ -53,14 +53,24 @@ function RegisterPage(props) {
     param.append("password", Password);
     param.append("name", Name);
     param.append("age", Age);
-    param.append("gender",Gender);
-            
+    param.append("gender", Gender);
     
-    if (Password === ConfirmPasword) {
-      if (isPassword(Password)) {
-        if (isEmail(Email)) {
-          if (Checkid) {
-             const param = new URLSearchParams;
+
+
+    if (!Checkid) {
+      alert("이메일 중복체크 해주세요")
+    } else {
+      if (!isEmail(Email)) {
+        alert("이메일 형식에 맞지 않습니다")
+      } else {
+        if (Password !== ConfirmPasword) {
+          alert("비밀번호를 다시 확인해주세요")
+        } else {
+          if(!isPassword(Password)){
+            alert("비밀번호 형식을 확인해주세요")
+          } else {
+
+            const param = new URLSearchParams;
             param.append("email", Email);
             param.append("password", Password);
             param.append("name", Name);
@@ -74,24 +84,12 @@ function RegisterPage(props) {
                 props.history.push("/login")
         
             })
-             
+            
           }
-          if (!Checkid) {
-            alert("이메일 중복체크 해주세요")
-          }
-         
-        
+        }
       }
-        
-      }
-     
-     
-      }
-
-
-      // axios.post('http://localhost:4000/register', param)
-      // .then(res=>res.data)
-
+    }
+            
 
   }
   

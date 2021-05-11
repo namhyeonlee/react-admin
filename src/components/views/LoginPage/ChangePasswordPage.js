@@ -8,7 +8,6 @@ function ChangePasswordPage(props) {
     const [Password, setPassword] = useState("");
     const [ChangePassword, setChangePassword] = useState("");
     const [ConfirmPasword, setConfirmPasword] = useState("");
-    const [CurrentPassword, setCurrentPassword] = useState("");
     
 
     const onEmailHandler = (e) => {
@@ -34,9 +33,9 @@ function ChangePasswordPage(props) {
         param.append("password", Password);
         param.append("changePass", ChangePassword);
 
-      
-      
-      if (ChangePassword === ConfirmPasword) {
+      if (ChangePassword !== ConfirmPasword) {
+        alert("비밀번호를 다시 확인해주세요")
+      } else {
         if (isPassword(ChangePassword)) {
           axios.post('http://localhost:4000/change_pw', param)
                  .then((res) => {
@@ -44,8 +43,19 @@ function ChangePasswordPage(props) {
                    alert("비밀번호가 변경되었습니다")
                    props.history.push("/login")
                  })
-        }
+        } 
       }
+      
+      // if (ChangePassword === ConfirmPasword) {
+      //   if (isPassword(ChangePassword)) {
+      //     axios.post('http://localhost:4000/change_pw', param)
+      //            .then((res) => {
+      //              console.log(res)
+      //              alert("비밀번호가 변경되었습니다")
+      //              props.history.push("/login")
+      //            })
+      //   }
+      // }
             
         }
         
@@ -57,7 +67,8 @@ function ChangePasswordPage(props) {
       alert("비밀번호 형식에 맞지 않습니다")
     }
   return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
-  }
+    }
+  
     return (
         <div style={{
             display: "flex",
@@ -73,11 +84,11 @@ function ChangePasswordPage(props) {
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler} />
         <label>현재 비밀번호</label>
-        <input type="text" id="pass" value={Password} onChange={onPasswordHandler} />
+        <input type="password" id="pass" value={Password} onChange={onPasswordHandler} />
         <label>변경 비밀번호</label>
-       <input type="text" id="chang_id" value={ChangePassword} onChange={onChangePasswordHandler} />
+       <input type="password" id="chang_id" value={ChangePassword} onChange={onChangePasswordHandler} />
        <label>변경 비밀번호 확인</label>
-       <input type="text" value={ConfirmPasword} onChange={onConfirmPasswordHandler} />
+       <input type="password" value={ConfirmPasword} onChange={onConfirmPasswordHandler} />
         <br/>
         <button type="submit" >비밀번호 변경</button>        
             </form>
