@@ -46,16 +46,7 @@ function ChangePasswordPage(props) {
         } 
       }
       
-      // if (ChangePassword === ConfirmPasword) {
-      //   if (isPassword(ChangePassword)) {
-      //     axios.post('http://localhost:4000/change_pw', param)
-      //            .then((res) => {
-      //              console.log(res)
-      //              alert("비밀번호가 변경되었습니다")
-      //              props.history.push("/login")
-      //            })
-      //   }
-      // }
+     
             
         }
         

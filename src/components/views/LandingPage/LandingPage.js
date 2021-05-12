@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect}from "react";
 import { withRouter, Link } from "react-router-dom";
 import BoardMainPage from "../../boardPage/BoardMainPage";
+import axios from 'axios'
+import Pagination from "../../boardPage/Pagination";
+
 
 function LandingPage(props) {
   
@@ -12,6 +15,52 @@ function LandingPage(props) {
     sessionStorage.removeItem('email')
      props.history.push("/login")
     
+  }
+
+  const [InitData, setInitData] = useState([{
+        inputData: {
+            idx: '',
+            title: '',
+            content: '',
+            writer: '',
+            write_date:''
+        }
+  }])
+
+  const [InitLastIdx, setInitLastIdx] = useState(0)
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(3);
+
+    
+    useEffect(async (e) => {
+        
+        axios.get('http://localhost:4000/boardlist')
+            .then((res) => {
+                console.log(res)
+                const _inputData = res.data.map((rowData) => (
+                    setInitLastIdx(rowData.idx),
+                    {
+                    idx: rowData.idx,
+                    title: rowData.title,
+                    content: rowData.content,
+                    writer: rowData.writer,
+                    write_date: rowData.write_date
+                    }
+                    
+                ))
+                console.log(_inputData)
+                setInitData(InitData.concat(_inputData))
+        })
+
+    }, [])
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  function currentPosts(tmp) {
+    let currentPosts = 0;
+    currentPosts = tmp.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
   }
 
 
@@ -40,7 +89,8 @@ function LandingPage(props) {
             )}
           </div>
       </div>
-      <BoardMainPage isLogin={isLogin}/>
+      <BoardMainPage isLogin={isLogin} InitData={currentPosts(InitData)} />
+      <Pagination postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage}/>
     </div>
   );
 }

@@ -16,9 +16,11 @@ function RegisterPage(props) {
    const [Tel, setTel] = useState("");
   const dispatch = useDispatch();
   const [Checkid, setCheckid] = useState(false);
+  const [KeyPress, setKeypres] = useState(false);
 
 
   const onEmailHandler = (e) => {
+   
     setEmail(e.currentTarget.value);
   };
 
@@ -39,10 +41,10 @@ function RegisterPage(props) {
     const onGenderHandler = (e) => {
       //setGender(e.currentTarget.value);
       setGender(e.target.value)
-      
     };
   const onTelHandler = (e) => {
-    setTel(e.currentTarget.value);
+    setTel(e.currentTarget.value)
+    
   };
 
   const onSubmitHandler = async(e) => {
@@ -111,15 +113,22 @@ function RegisterPage(props) {
   return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
   }
   
+  //이메일 중복 체크ㅡㅡㅡ
+  const onKeypressHandler = (e) => {
+    if (e.key) {
+      return setCheckid(false)
+    } 
+  }
+
   //이메일 중복체크
 
   function checkID(e) {
-    e.preventDefault();
-    const param = new URLSearchParams;
-            param.append("email", Email);
-
+     e.preventDefault();
+     
    
-      axios.post('http://localhost:4000/checkid', param)
+    const param = new URLSearchParams;
+    param.append("email", Email);
+     axios.post('http://localhost:4000/checkid', param)
       .then(res=>res.data)
       .then(json => {
         if (json.tf === true) {
@@ -130,10 +139,17 @@ function RegisterPage(props) {
           alert("다른 아이디를 입력해주세요!")
         }
       })
+   
+    } 
+     
+  
+  //number maxLength 체크
 
-
+  function maxLengthCheck(object) {
+    if (object.length > object.maxLength) {
+      object= object.slice(0, object.maxLength)
+    }
   }
-
   
   return (
     <div
@@ -148,23 +164,24 @@ function RegisterPage(props) {
         onSubmit={onSubmitHandler}
         style={{ display: "flex", flexDirection: "column" }}>
         <label>Email</label>
-        <input type="text" value={Email} onChange={onEmailHandler} />
+        <input type="text" value={Email} onChange={onEmailHandler} onKeyPress={onKeypressHandler} maxlength="50"/>
         <button onClick={checkID}>이메일 중복체크 확인</button>
 
         <label>Name</label>
-        <input type="text" value={Name} onChange={onNameHandler} />
+        <input type="text" value={Name} onChange={onNameHandler} maxlength="20" />
 
         <label>Password</label>
-        <input type="password" value={Password} onChange={onPasswordHanlder} />
+        <input type="password" value={Password} onChange={onPasswordHanlder} maxlength="10" />
 
         <label>ConfirmPasword</label>
         <input
           type="password"
           value={ConfirmPasword}
           onChange={onConfirmPasswordHandler}
+          maxlength="10"
         />
         <label>Age</label>
-        <input type="number" value={Age} onChange={onAgeHandler} />
+        <input type="number" value={Age} onChange={onAgeHandler} maxlength="5"/>
         <div>
         <label>Gender</label>
         <input type="radio" name="gender" id="women" value="여" onChange={onGenderHandler}/>여
@@ -173,7 +190,7 @@ function RegisterPage(props) {
        
 
          <label>tel</label>
-        <input type="number" value={Tel} onChange={onTelHandler} />
+        <input type="number" value={Tel} onChange={onTelHandler} maxlength="13" />
         <br />
         <button type="submit" >회원 가입</button>
       </form>

@@ -7,7 +7,7 @@ function FindPasswordPage(props) {
     
     const [Name, setName] = useState("");
     const [Email, setEmail] = useState("");
-    const [FindPassword, setFindPassword] = useState("");
+    const [FindPassword, setFindPassword] = useState([]);
     const [text, setText] = useState(false);
     
 
@@ -38,6 +38,7 @@ function FindPasswordPage(props) {
                 } else {
                     console.log(res.data)
                     setFindPassword(res.data.password)
+
                     console.log(FindPassword)
                     setText(true)
                 }
@@ -45,6 +46,14 @@ function FindPasswordPage(props) {
         })
 
     }
+
+    const decryptePassword = (encryption) => {
+        axios.post('http://localhost:4000/pass', {
+            password: encryption.password,
+            iv: encryption.iv
+        })
+   }
+
     return (
         <div style={{
         display: "flex",
@@ -68,8 +77,7 @@ function FindPasswordPage(props) {
             </form>
             <br />
             {text ? <div>
-                <h3>비밀번호: {FindPassword}</h3>
-                
+                <h3>비밀번호: {FindPassword}</h3>   
             </div> : null}
             <br />
            

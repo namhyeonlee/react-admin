@@ -3,40 +3,41 @@ import { Link, withRouter } from "react-router-dom";
 import axios from 'axios'
 
 function BoardMainPage(props) {
-     const isLogin = props.isLogin
-    const [InitData, setInitData] = useState([{
-        inputData: {
-            idx: '',
-            title: '',
-            content: '',
-            writer: '',
-            write_date:''
-        }
-    }])
-    //원할한 데이터 관리를 위해 글 갯수를 파악한다
-    const [InitLastIdx, setInitLastIdx] = useState(0)
-    
-    useEffect(async (e) => {
-        
-        axios.get('http://localhost:4000/boardlist')
-            .then((res) => {
-                console.log(res)
-                const _inputData = res.data.map((rowData) => (
-                    setInitLastIdx(rowData.idx),
-                    {
-                    idx: rowData.idx,
-                    title: rowData.title,
-                    content: rowData.content,
-                    writer: rowData.writer,
-                    write_date: rowData.write_date
-                    }
-                    
-                ))
-                console.log(_inputData)
-                setInitData(InitData.concat(_inputData))
-        })
+    const InitData = props.InitData
 
-    }, [])
+    // const [InitData, setInitData] = useState([{
+    //     inputData: {
+    //         idx: '',
+    //         title: '',
+    //         content: '',
+    //         writer: '',
+    //         write_date:''
+    //     }
+    // }])
+    // //원할한 데이터 관리를 위해 글 갯수를 파악한다
+    // const [InitLastIdx, setInitLastIdx] = useState(0)
+    
+    // useEffect(async (e) => {
+        
+    //     axios.get('http://localhost:4000/boardlist')
+    //         .then((res) => {
+    //             console.log(res)
+    //             const _inputData = res.data.map((rowData) => (
+    //                 setInitLastIdx(rowData.idx),
+    //                 {
+    //                 idx: rowData.idx,
+    //                 title: rowData.title,
+    //                 content: rowData.content,
+    //                 writer: rowData.writer,
+    //                 write_date: rowData.write_date
+    //                 }
+                    
+    //             ))
+    //             console.log(_inputData)
+    //             setInitData(InitData.concat(_inputData))
+    //     })
+
+    // }, [])
 
 
    
@@ -53,11 +54,10 @@ function BoardMainPage(props) {
                 <th>date</th>
                 </thead>
                 <tbody>
-                  
                         {InitData.map((rowData, i) => (
                        <tr>
                          <td>
-                            <Link to={`/postView/${rowData.idx}`}>{i}</Link>
+                            <Link to={`/postView/${rowData.idx}`}>{i+1}</Link>
                         </td>
                        
                         <td>{rowData.title}</td>

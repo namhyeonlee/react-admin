@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const router = express.Router();
 
+const {encrypt, decrypt} = require('./EncryptionHandler')
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,16 +39,17 @@ connection.query('SELECT * FROM user.new_table', function(err, results, fields) 
 //회원가입
 app.post('/register', (req, res) => {
  
-     let sql = 'INSERT INTO new_table (email, password, name, age, gender, tel) VALUES (?,?,?,?,?,?)';
+     let sql = 'INSERT INTO new_table (email, password, name, age, gender, tel, iv) VALUES (?,?,?,?,?,?,?)';
      let email= req.body.email;
      let password = req.body.password;
      let name = req.body.name;
      let age = req.body.age;
     let gender = req.body.gender;
     let tel = req.body.tel;
-    
 
-     let params = [email, password, name, age, gender, tel];
+    const hashedPassword = encrypt(password);
+
+     let params = [email, hashedPassword.password, name, age, gender, tel, hashedPassword.iv];
      connection.query(sql, params,
          (err, rows, fields) => {
              if(err){
@@ -145,7 +148,7 @@ app.post('/id', (req, res) => {
 //사용자 비밀번호 찾기
 app.post('/pass', (req, res) => {
    
-    let sql = "select password from `new_table` WHERE name=? AND email=?"
+    let sql = "select password, iv from `new_table` WHERE name=? AND email=?"
     
     let email= req.body.email;
     let name= req.body.name;
@@ -165,6 +168,11 @@ app.post('/pass', (req, res) => {
         }
     })
 });
+
+app.post('/decryptpassword', (req, res) => {
+    res.send(decrypt(req.body))
+})
+
 
 //비밀번호 변경
 app.post('/change_pw', (req, res) => {
