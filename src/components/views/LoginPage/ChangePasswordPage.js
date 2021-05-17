@@ -75,11 +75,11 @@ function ChangePasswordPage(props) {
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler} />
         <label>현재 비밀번호</label>
-        <input type="password" id="pass" value={Password} onChange={onPasswordHandler} />
+        <input type="password" id="pass" value={Password} onChange={onPasswordHandler} maxlength="50"/>
         <label>변경 비밀번호</label>
-       <input type="password" id="chang_id" value={ChangePassword} onChange={onChangePasswordHandler} />
+       <input type="password" id="chang_id" value={ChangePassword} onChange={onChangePasswordHandler} maxlength="20"/>
        <label>변경 비밀번호 확인</label>
-       <input type="password" value={ConfirmPasword} onChange={onConfirmPasswordHandler} />
+       <input type="password" value={ConfirmPasword} onChange={onConfirmPasswordHandler} maxlength="50"/>
         <br/>
         <button type="submit" >비밀번호 변경</button>        
             </form>

@@ -54,7 +54,8 @@ function BoardMainPage(props) {
                 <th>date</th>
                 </thead>
                 <tbody>
-                        {InitData.map((rowData, i) => (
+                    {InitData.map((rowData, i) => (
+                         
                        <tr>
                          <td>
                             <Link to={`/postView/${rowData.idx}`}>{i+1}</Link>

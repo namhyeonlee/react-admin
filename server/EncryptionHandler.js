@@ -18,11 +18,14 @@ const decrypt = (encryption) => {
     );
     
     const decryptePassword = Buffer.concat([
-        decipher.update(Buffer.from)(encryption.password, "hex"),
+        //decipher.update(Buffer.from)(encryption.password, "hex"),
+        decipher.update(Buffer.from(encryption.password, "hex")),
         decipher.final()
     ]);
 
     return decryptePassword.toString()
 }
+
+
 
 module.exports = { encrypt, decrypt };

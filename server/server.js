@@ -5,8 +5,54 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const router = express.Router();
+const crypto = require('crypto');
+const { constants } = require("buffer");
 
-const {encrypt, decrypt} = require('./EncryptionHandler')
+//const { encrypt, decrypt } = require('./EncryptionHandler')
+//const {encrypt, encryptWithSalt} = require('./crypto');
+
+
+
+const createSalt = () =>
+    new Promise((resolve, reject) => {
+        crypto.randomBytes(64, (err, buf) => {
+            if (err) reject(err);
+            resolve(buf.toString('base64'));
+        });
+    });
+
+
+
+const createHashedPassword = (plainPassword) => {
+   
+    new Promise(async (resolve, reject) => {
+        const salt = await createSalt();
+        crypto.pbkdf2(plainPassword, salt, 9999, 64, 'sha512', (err, key) => {
+            if (err) reject(err);
+            resolve({ password: key.toString('base64'), salt });
+        });
+    });
+
+
+}
+
+// const hashedpassword = (pass) => {
+//    crypto.randomBytes(64, (err, buf) => {
+//        const salt = buf.toString('base64');
+//         console.log('salt: ', salt);
+//         crypto.pbkdf2(pass, salt, 1000, 64, 'sha512', (err, key) => {
+//             console.log('password : ', key.toString('base64'));
+            
+//         });
+      
+//     }); 
+    
+// }
+
+
+    
+
+
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,18 +84,23 @@ connection.query('SELECT * FROM user.new_table', function(err, results, fields) 
 
 //회원가입
 app.post('/register', (req, res) => {
+
+    let salt = crypto.randomBytes(128).toString('base64');
+    let hashPassword = crypto.createHash("sha512").update(req.body.password + salt).digest("hex");
  
-     let sql = 'INSERT INTO new_table (email, password, name, age, gender, tel, iv) VALUES (?,?,?,?,?,?,?)';
+ 
+     let sql = 'INSERT INTO new_table (email, password, name, age, gender, tel, salt) VALUES (?,?,?,?,?,?,?)';
      let email= req.body.email;
-     let password = req.body.password;
+     let password = hashPassword;
      let name = req.body.name;
      let age = req.body.age;
     let gender = req.body.gender;
     let tel = req.body.tel;
 
-    const hashedPassword = encrypt(password);
-
-     let params = [email, hashedPassword.password, name, age, gender, tel, hashedPassword.iv];
+    
+ 
+    let params = [email, password, name, age, gender, tel, salt];
+    console.log(params);
      connection.query(sql, params,
          (err, rows, fields) => {
              if(err){
@@ -65,18 +116,25 @@ app.post('/register', (req, res) => {
  //로그인 처리
 
 app.post('/login', (req, res) => {
-     let sql1 = 'SELECT COUNT(*) AS result FROM new_table WHERE email = ?';
+    let sql1 = 'SELECT COUNT(*) AS result FROM new_table WHERE email = ?';
     let email= req.body.email;
-     let password = req.body.password;
-  
+    let password = req.body.password;
+   
+    
     connection.query(sql1, email, (err, data) => {
         if (!err) {
             //결과값이 1보다 작다면(동일한 id가 없다면)
             if (data[0].result < 1) {
-                res.send({'msg': '입력하신 id가 일치하지 않습니다'})
+                res.send({ 'msg': '입력하신 id가 일치하지 않습니다' })
+                
             } else {
+                const sql2 = "select salt from `new_table` WHERE email=?"
+                connection.query(sql2, email, (err, data) => {
+                    const salt = data[0].salt;
+                    const hashPassword = crypto.createHash("sha512").update(password + salt).digest("hex");
+
                 //동일한 id가 있으면 비밀번호 일치 확인
-                const sql2 = `SELECT 
+                const sql3 = `SELECT 
                                 CASE (SELECT COUNT(*) FROM new_table WHERE email = ? AND password = ?)
                                     WHEN '0' THEN NULL
                                     ELSE (SELECT email FROM new_table WHERE email = ? AND password = ?)
@@ -87,8 +145,10 @@ app.post('/login', (req, res) => {
                                 END AS password`;
                 
             // sql 란에 필요한 parameter 값을 순서대로 기재
-                const params = [email, password, email, password, email, password, email, password]
-                connection.query(sql2, params, (err, data) => {
+
+                    const params = [email, hashPassword, email, hashPassword, email, hashPassword, email, hashPassword]
+
+                connection.query(sql3, params, (err, data) => {
                     if (!err) {
                         res.send(data[0])
                        
@@ -96,6 +156,11 @@ app.post('/login', (req, res) => {
                         res.send(err)
                     }
                 })
+                    
+
+                })
+
+               
             }
         }
     })
@@ -148,47 +213,64 @@ app.post('/id', (req, res) => {
 //사용자 비밀번호 찾기
 app.post('/pass', (req, res) => {
    
-    let sql = "select password, iv from `new_table` WHERE name=? AND email=?"
+    let sql = "select password from `new_table` WHERE name=? AND email=?"
     
     let email= req.body.email;
-    let name= req.body.name;
+    let name = req.body.name;
     let params = [name, email]
     let ret =[];
   
 
     connection.query(sql, params, (err, result) => {
         if (!err) {
-            console.log("email :", email);
-            console.log("name :", name);
+            
             ret = result[0];
             console.log("result :", result);
-                res.send(ret);
+            res.send(ret);
         } else {
             console.log(`query err: ${err}`);
         }
     })
 });
 
-app.post('/decryptpassword', (req, res) => {
-    res.send(decrypt(req.body))
-})
+// app.post('/decryptpassword', (req, res) => {
+//     let password = req.body.password;
+//     let iv = req.body.iv;
+//     let param = {
+//         password, iv
+//     }
+    
+//     res.send(decrypt(param))
+// })
 
 
 //비밀번호 변경
 app.post('/change_pw', (req, res) => {
-
-     let sql = 'UPDATE new_table SET password=? WHERE password=? and email=?';
+    let sql1 = "select salt from `new_table` WHERE email=?"
+    let sql2 = 'UPDATE new_table SET password=? WHERE password=? and email=?';
+   
     
     let email = req.body.email;
     let password = req.body.password;
     let changePass = req.body.changePass;
-    let params = [changePass, password,email]
+    let salt = crypto.randomBytes(128).toString('base64');
+    let hashedChangePass = crypto.createHash("sha512").update(changePass + salt).digest("hex");
 
-    connection.query(sql, params, (err, result) => {
-        if (err) throw err;
-        res.send('User updated in database with password: ' + req.body.changePass);
+    let params = [hashedChangePass, password, email]
+   
+    
+       connection.query(sql2, params, (err, result) => {
+        if (err) { throw err; }
+        else {
+
+            res.send('User updated in database with password: ' + req.body.changePass);
+
+        }
+        
         
     })
+
+   
 })
 
 

@@ -39,6 +39,7 @@ function LoginPage(props) {
        .then((res) => {
          console.log(res)
          if (res.data.email === undefined) {
+           console.log("email:", res.data.email)
            alert('입력하신 아이디가 일치하지 않습니다.')
          } else if (res.data.email === null) {
            // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
@@ -71,9 +72,9 @@ function LoginPage(props) {
         onSubmit={onSubmitHandler}
         style={{ display: "flex", flexDirection: "column" }}>
         <label>Email</label>
-        <input type="email" value={Email} onChange={onEmailHandler} />
+        <input type="email" value={Email} onChange={onEmailHandler} maxlength="20"/>
         <label>Password</label>
-        <input type="password" value={Password} onChange={onPasswordHanlder} />
+        <input type="password" value={Password} onChange={onPasswordHanlder} maxlength="20" />
         <br />
         <button
           type="submit"

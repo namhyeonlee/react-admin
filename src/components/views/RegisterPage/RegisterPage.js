@@ -35,17 +35,21 @@ function RegisterPage(props) {
   const onConfirmPasswordHandler = (e) => {
     setConfirmPasword(e.currentTarget.value);
   };
-    const onAgeHandler = (e) => {
-    setAge(e.currentTarget.value);
+  const onAgeHandler = (e) => {
+    const target = e.currentTarget.value;
+    const modifiedValue = target.substring(0, 5);
+    setAge(modifiedValue);
   };
     const onGenderHandler = (e) => {
-      //setGender(e.currentTarget.value);
       setGender(e.target.value)
     };
   const onTelHandler = (e) => {
-    setTel(e.currentTarget.value)
+    const target = e.currentTarget.value;
+    const modifiedValue = target.substring(0, 13);
+    setTel(modifiedValue)
     
   };
+
 
   const onSubmitHandler = async(e) => {
     e.preventDefault();
@@ -131,11 +135,14 @@ function RegisterPage(props) {
      axios.post('http://localhost:4000/checkid', param)
       .then(res=>res.data)
       .then(json => {
-        if (json.tf === true) {
+        if (json.tf === true && Email !== '')  {
           alert("사용가능한 아이디입니다")
           setCheckid(true)
           
-        } else {
+        } else if (Email === '') {
+          alert("아이디를 입력해주세요")
+        }
+        else {
           alert("다른 아이디를 입력해주세요!")
         }
       })
@@ -143,13 +150,7 @@ function RegisterPage(props) {
     } 
      
   
-  //number maxLength 체크
-
-  function maxLengthCheck(object) {
-    if (object.length > object.maxLength) {
-      object= object.slice(0, object.maxLength)
-    }
-  }
+ 
   
   return (
     <div
@@ -171,7 +172,7 @@ function RegisterPage(props) {
         <input type="text" value={Name} onChange={onNameHandler} maxlength="20" />
 
         <label>Password</label>
-        <input type="password" value={Password} onChange={onPasswordHanlder} maxlength="10" />
+        <input type="password" value={Password} onChange={onPasswordHanlder} maxlength="50" />
 
         <label>ConfirmPasword</label>
         <input
