@@ -65,7 +65,7 @@ function PostView({ match }, props) {
                 <label>content</label>
                 <textarea type="text" value={content} />
                 <label>writer</label>
-                <input type="text"value={writer}/>
+                <input type="text" value={writer}/>
             </form>
             
             {user === writer ? (

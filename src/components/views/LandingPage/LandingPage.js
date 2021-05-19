@@ -18,7 +18,8 @@ function LandingPage(props) {
   }
 
   const [InitData, setInitData] = useState([{
-        inputData: {
+    inputData: {
+            order:'',
             idx: '',
             title: '',
             content: '',
@@ -27,7 +28,6 @@ function LandingPage(props) {
         }
   }])
 
-  const [InitLastIdx, setInitLastIdx] = useState(0)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(3);
@@ -38,10 +38,11 @@ function LandingPage(props) {
         axios.get('http://localhost:4000/boardlist')
             .then((res) => {
                 console.log(res)
-                const _inputData = res.data.map((rowData) => (
-                    setInitLastIdx(rowData.idx),
+                const _inputData = res.data.map((rowData, i) => (
+                   
                     {
-                    idx: rowData.idx,
+                    order: i + 1,
+                    idx:rowData.idx,
                     title: rowData.title,
                     content: rowData.content,
                     writer: rowData.writer,
@@ -54,6 +55,9 @@ function LandingPage(props) {
         })
 
     }, [])
+  
+   
+
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
@@ -75,6 +79,8 @@ function LandingPage(props) {
       }}>
       <div style={{display:"flex", justifyContent:"space-between"}}>
         <h2>시작 페이지</h2>
+       
+
         <div style={{ marginLeft: "30px" }}>
           
       {sessionStorage.getItem('email') ?
@@ -89,7 +95,7 @@ function LandingPage(props) {
             )}
           </div>
       </div>
-      <BoardMainPage isLogin={isLogin} InitData={currentPosts(InitData)} />
+      <BoardMainPage isLogin={isLogin} InitData={currentPosts(InitData)}/>
       <Pagination postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage}/>
     </div>
   );

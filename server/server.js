@@ -281,11 +281,24 @@ app.get('/boardlist', (req, res) => {
     connection.query(sql, (err, data) => {
         if (!err) {
             res.send(data);
+            
         } else {
             res.send(err)
         }
     })
 })
+
+// app.get('/rownum', (req, res)=> {
+//     const sql = 'SELECT @ROWNUM:=@ROWNUM+1 FROM board A, (SELECT @ROWNUM:=0) R';
+//     connection.query(sql, (err, data) => {
+//         if (!err) {
+//             res.send(data);
+            
+//         } else {
+//             res.send(err)
+//         }
+//     })
+// })
 
 
 
@@ -362,7 +375,72 @@ app.get('/boardDelete', (req, res) => {
 
 
 
-//last idx 가지공기
+//admin memberlist
+
+app.get('/memberlist', (req, res) => {
+    const sql = 'SELECT idx, email, password, name, age, gender, tel FROM new_table order by idx desc';
+    const idx = req.query.idx;
+
+    connection.query(sql,(err, data) => {
+        if (!err) {
+            res.send(data);
+        } else {
+
+            res.send(err)
+        }
+    })
+})
+
+//admin memberlist 상세페이지
+
+app.get('/memberView', (req, res) => {
+    const sql = 'SELECT idx, email, password, name, age, gender, tel FROM new_table WHERE `idx` = ?';
+    const idx = req.query.idx;
+
+    connection.query(sql, idx, (err, data) => {
+        if (!err) {
+            res.send(data);
+            console.log(data);
+            
+        } else {
+
+            res.send(err)
+        }
+    })
+})
+
+//멤버 삭제 
+app.get('/memberDelete', (req, res) => {
+    const sql = 'DELETE FROM `new_table` WHERE `idx` = ?';
+    const idx = req.query.idx;
+
+    connection.query(sql, idx, (err, data) => {
+        if(!err) {
+            res.send(data)
+        } else {
+            res.send(err)
+        }
+    })
+})
+
+//멤버정보수정
+
+app.post('/memberupdate', (req, res) => { 
+    const sql = 'UPDATE `new_table` SET `name` = ?, `age` = ?,`tel`=? WHERE `idx` = ?';
+    const name = req.body.name;
+    const age = req.body.age;
+    const tel = req.body.tel;
+    const idx = req.body.idx;
+    params = [name, age, tel, idx]
+    
+    connection.query(sql, params, (err, data) => {
+        if (!err) {
+           res.send(data)
+        } else {
+            res.send(err)
+       }
+    })
+})
 
  app.listen(port, ()=>{
     console.log(`Connect at http://localhost:${port}`);

@@ -3,7 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import axios from 'axios'
 
 function BoardMainPage(props) {
-    const InitData = props.InitData
+    const InitData = props.InitData;
+  
 
     // const [InitData, setInitData] = useState([{
     //     inputData: {
@@ -40,9 +41,12 @@ function BoardMainPage(props) {
     // }, [])
 
 
+
+
    
     return (
         <div>
+           
             <h2>게시판</h2>
             <table>
                 <thead>
@@ -54,11 +58,16 @@ function BoardMainPage(props) {
                 <th>date</th>
                 </thead>
                 <tbody>
+                   
                     {InitData.map((rowData, i) => (
                          
-                       <tr>
+                        <tr key={i}>
+                          
                          <td>
-                            <Link to={`/postView/${rowData.idx}`}>{i+1}</Link>
+                                <Link to={`/postView/${rowData.idx}`}>
+                                    {rowData.order}
+                                </Link>
+                                
                         </td>
                        
                         <td>{rowData.title}</td>
