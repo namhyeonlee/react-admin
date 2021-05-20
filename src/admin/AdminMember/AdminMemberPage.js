@@ -1,6 +1,8 @@
 import React, { useState, useEffect}from "react";
 import { withRouter, Link } from "react-router-dom";
 import axios from 'axios'
+import AdminMemberList from "./AdminMemberList";
+import Pagination from '../../components/boardPage/Pagination';
 
 function AdminMemberPage(props) {
      const [InitData, setInitData] = useState([{
@@ -13,7 +15,17 @@ function AdminMemberPage(props) {
              gender: '',
             tel:''
         }
-  }])
+     }])
+    
+  const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(10);
+      const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  function currentPosts(tmp) {
+    let currentPosts = 0;
+    currentPosts = tmp.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  }
 
     useEffect(async (e) => {
         
@@ -42,40 +54,9 @@ function AdminMemberPage(props) {
     return (
         <div>
             <h2>memberlist</h2>
-            <table>
-                <thead>
-                
-                <th>index</th>
-                <th>email</th>
-                <th>name</th>
-                <th>age</th>
-                    <th>gender</th>
-                    <th>tel</th>
-                </thead>
-                <tbody>
-                   
-                    {InitData.map((rowData, i) => (
-                         
-                        <tr key={i}>
-                          
-                         <td>
-                                <Link to={`/memberView/${rowData.idx}`}>
-                                    {rowData.order}
-                                </Link>
-                                
-                        </td>
-                       
-                        <td>{rowData.email}</td>
-                        <td>{rowData.name}</td>
-                         <td>{rowData.age}</td> 
-                        <td>{rowData.gender}</td>
-                        <td>{rowData.tel}</td>
-                        </tr>
-                ))}
-                   
-                </tbody>
-                
-            </table>
+            <button><Link to="/adminBoardPage">게시판관리</Link></button>
+            <AdminMemberList InitData={currentPosts(InitData)} />
+            <Pagination postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage}/>
         </div>
         
     )

@@ -358,6 +358,8 @@ app.post('/boardupdate', (req, res) => {
     })
 })
 
+
+
 //게시판 삭제 
 app.get('/boardDelete', (req, res) => {
     const sql = 'DELETE FROM `board` WHERE `idx` = ?';

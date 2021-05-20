@@ -80,7 +80,7 @@ function AdminMemberView({ match }, props) {
         const param = new URLSearchParams;
         param.append("name", Name);
         param.append("age", Age);
-        param.append("age", Tel);
+        param.append("tel", Tel);
         param.append("idx", idx);
         
         window.confirm("수정하시겠습니까?")
@@ -118,13 +118,13 @@ function AdminMemberView({ match }, props) {
                 <input type="text" value={Gender} onChange={onGenderHandler} />
                 <label>tel</label>
                 <input type="number" value={Tel} onChange={onTelHandler} />
-                <button type="submit">수정하기</button>
+                <button type="submit" style={{ width: "130px", marginTop:"10px" }}>수정하기</button>
             </form>
 
             <div>
-                <button>수정하기</button>
-                <button onClick={onRemoveHandler}>삭제하기</button>
-                <button><Link to="/adminMemberPage">목록</Link></button>
+                
+                <button onClick={onRemoveHandler} style={{width:"130px", marginTop:"10px"}}>삭제하기</button>
+                <button style={{width:"130px", marginTop:"10px", display:"block"}}><Link to="/adminMemberPage">목록</Link></button>
             </div>
             
             {/* {user === writer ? (
