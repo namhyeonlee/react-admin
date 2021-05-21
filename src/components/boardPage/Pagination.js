@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PageUl = styled.ul`
-  float:left;
+  // float:left;
+  width: 400px;
+  margin: 20px auto; 
   list-style: none;
   text-align:center;
   border-radius:3px;
@@ -44,7 +46,7 @@ function Pagination({ postsPerPage, totalPosts, paginate }) {
         pageNumbers.push(i);
     }
     return (
-        <div>
+      <div>
             <nav>
                 <PageUl>
                     {pageNumbers.map(number => (

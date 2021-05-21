@@ -55,13 +55,13 @@ const [InitData, setInitData] = useState([{
 
 
     return (
-        
         <div>
             <h1>AdminBoardPage</h1>
             <button><Link to="/adminMemberPage">회원관리</Link></button>
             <AdminBoardList InitData={currentPosts(InitData)} />
             <Pagination postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage}/>
-         </div>
+            </div>
+       
     )
 }
 

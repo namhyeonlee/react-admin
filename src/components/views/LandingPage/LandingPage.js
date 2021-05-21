@@ -5,6 +5,7 @@ import axios from 'axios'
 import Pagination from "../../boardPage/Pagination";
 
 
+
 function LandingPage(props) {
   
   const isLogin = props.isLogin
@@ -30,7 +31,7 @@ function LandingPage(props) {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(3);
+  const [postsPerPage, setPostsPerPage] = useState(5);
 
     
     useEffect(async (e) => {
@@ -78,25 +79,11 @@ function LandingPage(props) {
         height: "100vh",
       }}>
       <div style={{display:"flex", justifyContent:"space-between"}}>
-        <h2>시작 페이지</h2>
-       
-
-        <div style={{ marginLeft: "30px" }}>
-          
-      {sessionStorage.getItem('email') ?
-       
-          <button onClick={onLogout}>로그아웃</button>
-      
-        : (
-          <>
-            <button style={{marginRight:"20px"}}><Link to="/login">로그인</Link></button>
-            <button><Link to="/register">회원가입</Link></button>
-            </>
-            )}
-          </div>
+        
       </div>
       <BoardMainPage isLogin={isLogin} InitData={currentPosts(InitData)}/>
-      <Pagination postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage}/>
+      <Pagination className="pagination" postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage} />
+  
     </div>
   );
 }

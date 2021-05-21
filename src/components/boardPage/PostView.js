@@ -55,11 +55,11 @@ function PostView({ match }, props) {
         <div style={{
             width: "100%",
             height: "100vh",
-            margin: "auto"
+            
         }}> 
            
-            <h1>상세페이지</h1>
-            <form style={{ display: "flex", flexDirection: "column", width: "50%" }}>
+            <h1 style={{textAlign:"center"}}>상세페이지</h1>
+            <form style={{ display: "flex", flexDirection: "column", width: "50%", margin: "auto"}}>
                 <label>title</label>
                 <input type="text" value={title} />
                 <label>content</label>
@@ -69,7 +69,7 @@ function PostView({ match }, props) {
             </form>
             
             {user === writer ? (
-                <div style={{marginTop:"20px"}}> 
+                <div style={{marginTop:"20px",  textAlign:"center"}}> 
                     <button style={{ marginRight:"10px"}}>
                 <Link to={`/boardUpdate/${idx}`}>수정하기</Link>
                 </button>

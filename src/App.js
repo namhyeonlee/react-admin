@@ -16,6 +16,7 @@ import AdminMemberPage from "./admin/AdminMember/AdminMemberPage";
 import AdminBoardPage from "./admin/AdminBoard/AdminBoardPage";
 import AdminMemberView from "./admin/AdminMember/AdminMemberView";
 import AdminBoardView from "./admin/AdminBoard/AdminBoardView";
+import Nav from "./components/views/LandingPage/Nav"
 function App() {
 
 //로그인 상태관리
@@ -31,7 +32,11 @@ function App() {
   },[])
 
   return (
+    
+    <>
+
     <Router>
+        <Nav/>
       <div>
         <Switch>
           <Route exact path="/" render={()=><LandingPage isLogin={isLogin}/>} />
@@ -53,7 +58,8 @@ function App() {
           <Route exact path='/adminBoardView/:no' component={AdminBoardView} />
         </Switch>
       </div>
-    </Router>
+      </Router>
+      </>
   );
 }
 

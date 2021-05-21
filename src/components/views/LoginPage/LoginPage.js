@@ -60,6 +60,7 @@ function LoginPage(props) {
 
   return (
     <div
+      className="login"
       style={{
         display: "flex",
         flexDirection:"column",

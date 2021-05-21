@@ -59,10 +59,10 @@ function Boardupdate({ match }) {
         width: "100%",
         height: "100vh",
       }}>
-            <h1>수정하기</h1>
+            <h1 style={{textAlign:"center"}}>수정하기</h1>
             <form
                 onSubmit={onSubmitHandler}
-                style={{ display: "flex", flexDirection: "column", width: "50%" }}>
+                style={{ display: "flex", flexDirection: "column", width: "50%", margin:"auto" }}>
                 <label>title</label>
                 <input type="text" value={ title} onChange={onTitleHandler}/>
             <label>content</label>
@@ -71,7 +71,7 @@ function Boardupdate({ match }) {
                 {sessionStorage.getItem('email')?<button type="submit" style={{width:"130px"}}>수정하기</button>:null}
             </form>
             <button style={{width:"130px", marginTop:"10px"}}>
-                <Link to="/boardmain">목록으로 돌아가기</Link>
+                <Link to="/">목록으로 돌아가기</Link>
             </button>
         </div>
         

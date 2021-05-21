@@ -88,7 +88,9 @@ function AdminBoardView({ match }, props) {
         }}> 
            
             <h1>상세페이지</h1>
-            <form
+            {sessionStorage.getItem('email') ? (
+                <>
+                 <form
                 style={{ display: "flex", flexDirection: "column", width: "50%" }}
                 onSubmit={onSubmitHandler}
             >
@@ -107,7 +109,10 @@ function AdminBoardView({ match }, props) {
                 
                 <button onClick={onRemoveHandler} style={{width:"130px", marginTop:"10px"}}>삭제하기</button>
                 <button style={{width:"130px", marginTop:"10px", display:"block"}}><Link to="/adminBoardPage">목록</Link></button>
-            </div>
+                    </div>
+                    </>
+            ): null}
+           
            
               
             

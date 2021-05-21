@@ -3,14 +3,20 @@
 }
 
 table{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-collapse: collapse;
   width: 1200px;
   height: 500px;
 }
 th,td{
-  border: 1px solid #444444;
+  /* border: 1px solid #444444; */
   padding: 10px;
+  border-bottom: 1px solid #444444;
+}
+
+.thead {
+border-top: 1px solid #444444;
+
 }
  
 
@@ -18,3 +24,30 @@ textarea{
   width: 700px;
   height: 300px;
 }
+
+.nav{
+  height: 70px;
+  background-color: rgb(241, 240, 240);
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.nav>div{
+  margin-right: 30px; 
+  line-height: 70px;
+}
+
+.board {
+  width: 100%;
+}
+.board>h2{
+  text-align: center;
+  margin-top: 50px;
+}
+.board>table {
+  margin: 0 auto;
+}
+
+
+

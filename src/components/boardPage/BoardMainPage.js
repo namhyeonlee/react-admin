@@ -8,11 +8,11 @@ function BoardMainPage(props) {
 
    
     return (
-        <div>
+        <div className="board">
            
             <h2>게시판</h2>
             <table>
-                <thead>
+                <thead className="thead"> 
                 
                 <th>index</th>
                 <th>title</th>
@@ -44,7 +44,7 @@ function BoardMainPage(props) {
                 </tbody>
                 
             </table>
-            {sessionStorage.getItem('email')?<button style={{marginTop:"10px"}}><Link to="/boardInsert">글쓰기</Link></button>:null}
+            {sessionStorage.getItem('email')?<button style={{marginTop:"10px", float:"right"}}><Link to="/boardInsert">글쓰기</Link></button>:null}
             
         </div>
     )
