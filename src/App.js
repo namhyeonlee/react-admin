@@ -36,9 +36,10 @@ function App() {
     <>
 
     <Router>
-        <Nav/>
+     {/* <Nav/> */}
       <div>
-        <Switch>
+          <Switch>
+             
           <Route exact path="/" render={()=><LandingPage isLogin={isLogin}/>} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
@@ -49,7 +50,7 @@ function App() {
           <Route exact path='/postView/:no' component={PostView} />
           <Route exact path="/boardInsert" component={BoardInsertPage} />
           <Route exact path='/boardUpdate/:no' component={BoardUpdate} />
-
+        
           {/* adminpage */}
           <Route exact path="/adminLandingPage" component={AdminLandingPage} />
           <Route exact path="/adminMemberPage" component={AdminMemberPage} />
@@ -59,7 +60,8 @@ function App() {
         </Switch>
       </div>
       </Router>
-      </>
+     
+      </> 
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect}from "react";
 import { withRouter, Link } from "react-router-dom";
 import axios from 'axios';
+import AdminNav from './AdminNav';
 
 function AdminLandingPage(props) {
       const [Email, setEmail] = useState("");
@@ -8,14 +9,6 @@ function AdminLandingPage(props) {
     const [isLogin, setIsLogin] = useState(false);
 
   
-    
-     const onLogout = (e) => {
-    e.preventDefault();
-    	// sessionStorage 에 user_id 로 저장되어있는 아이템을 삭제한다
-         sessionStorage.removeItem('email')
-         setIsLogin(false)
-    
-  }
     
     const onEmailHandler = (e) => {
     setEmail(e.currentTarget.value);
@@ -52,19 +45,21 @@ function AdminLandingPage(props) {
       })
 
   };
-    return (
+  return (
+    <>
+      <AdminNav/>
         <div>
-            <h1>admin</h1>
            
-            {sessionStorage.getItem('email') ? (<div>
-                <button onClick={onLogout}>logout</button>
-                <button><Link to='/adminMemberPage'>memberlist</Link></button>
-                <button><Link to='/adminBoardPage'>board</Link></button></div>)
-                : (
-                     <form style={{marginTop:"100px"}} onSubmit={onSubmitHandler}>
-                 <label>Email</label>
-                 <input type="email" value={Email} onChange={onEmailHandler} maxlength="20"/>
-                 <label>Password</label>
+        {sessionStorage.getItem('email') ? (
+          null
+            )
+          : (
+            <div>
+              <h3 style={{textAlign:"center", marginTop:"100px"}}>관리자 로그인</h3>
+                <form className="adminLoginForm" onSubmit={onSubmitHandler}>
+                <label>Email</label>
+                <input type="email" value={Email} onChange={onEmailHandler} maxlength="20"/>
+                <label>Password</label>
                 <input type="password" value={Password} onChange={onPasswordHanlder} maxlength="20" />
                 <button
           type="submit"
@@ -72,24 +67,12 @@ function AdminLandingPage(props) {
         >
           Login</button>
             </form>
-                    
+            </div>
                 )
             }
-            
-
-            {/* <form style={{marginTop:"100px"}} onSubmit={onSubmitHandler}>
-                 <label>Email</label>
-                 <input type="email" value={Email} onChange={onEmailHandler} maxlength="20"/>
-                 <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHanlder} maxlength="20" />
-                <button
-          type="submit"
-          style={{marginBottom:"10px"}}
-        >
-          Login</button>
-            </form> */}
   
-        </div>
+      </div>
+      </>
 
     )
 }

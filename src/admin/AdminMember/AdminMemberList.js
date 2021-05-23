@@ -5,14 +5,14 @@ import { withRouter, Link } from "react-router-dom";
 function AdminMemberList(props) {
     const InitData = props.InitData;
     return (
-        <table>
+        
+        <table style={{margin:"auto"}}>
                 <thead>
-                
                 <th>index</th>
                 <th>email</th>
                 <th>name</th>
                 <th>age</th>
-                    <th>gender</th>
+                    <th>gender</th>1
                     <th>tel</th>
                 </thead>
                 <tbody>
@@ -22,7 +22,7 @@ function AdminMemberList(props) {
                         <tr key={i}>
                           
                          <td>
-                                <Link to={`/memberView/${rowData.idx}`}>
+                                <Link to={`/memberView/${rowData.idx}`} style={{ textDecoration: 'none',color:"black"}}>
                                     {rowData.order}
                                 </Link>
                                 

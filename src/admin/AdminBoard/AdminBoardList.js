@@ -7,10 +7,8 @@ function AdminBoardList(props) {
   
     return (
         <div>
-           
-            <h2>게시판</h2>
-            <table>
-                <thead>
+            <table style={{margin:"auto"}}>
+                <thead className="thead">
                 
                 <th>index</th>
                 <th>title</th>
@@ -25,7 +23,7 @@ function AdminBoardList(props) {
                         <tr key={i}>
                           
                          <td>
-                                <Link to={`/adminBoardView/${rowData.idx}`}>
+                                <Link to={`/adminBoardView/${rowData.idx}`} style={{ textDecoration: 'none',color:"black"}}>
                                     {rowData.order}
                                 </Link>
                                 
@@ -42,7 +40,7 @@ function AdminBoardList(props) {
                 </tbody>
                 
             </table>
-            {sessionStorage.getItem('email')?<button style={{marginTop:"10px"}}><Link to="/boardInsert">글쓰기</Link></button>:null}
+            
             
         </div>
     )

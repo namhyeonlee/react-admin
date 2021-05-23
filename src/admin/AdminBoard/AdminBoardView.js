@@ -87,25 +87,25 @@ function AdminBoardView({ match }, props) {
             margin: "auto"
         }}> 
            
-            <h1>상세페이지</h1>
+            <h2 style={{textAlign:"center"}}>Board view</h2>
             {sessionStorage.getItem('email') ? (
                 <>
                  <form
-                style={{ display: "flex", flexDirection: "column", width: "50%" }}
+                style={{ display: "flex", flexDirection: "column", width: "50%", margin:"auto" }}
                 onSubmit={onSubmitHandler}
             >
                  <form style={{ display: "flex", flexDirection: "column", width: "50%" }}>
                 <label>title</label>
-                    <input type="text" value={title} onChange={onTitleHandler}/>
+                            <input type="text" value={title} onChange={onTitleHandler} style={{width:"700px"}}/>
                 <label>content</label>
                 <textarea type="text" value={content} onChange={onContentHandler} />
                 <label>writer</label>
-                <input type="text" value={writer}/>
+                <input type="text" value={writer} style={{width:"700px"}}/>
             </form>
                 <button type="submit" style={{ width: "130px", marginTop:"10px" }}>수정하기</button>
             </form>
 
-            <div>
+            <div className="adminBoardViewButton">
                 
                 <button onClick={onRemoveHandler} style={{width:"130px", marginTop:"10px"}}>삭제하기</button>
                 <button style={{width:"130px", marginTop:"10px", display:"block"}}><Link to="/adminBoardPage">목록</Link></button>

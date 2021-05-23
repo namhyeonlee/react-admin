@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import axios from 'axios'
 import AdminMemberList from "./AdminMemberList";
 import Pagination from '../../components/boardPage/Pagination';
+import AdminNav from '../AdminLandingPage/AdminNav';
 
 function AdminMemberPage(props) {
      const [InitData, setInitData] = useState([{
@@ -53,13 +54,13 @@ function AdminMemberPage(props) {
 
     return (
         <div>
-            <h2>memberlist</h2>
-            <button><Link to="/adminBoardPage">게시판관리</Link></button>
+            <AdminNav />
+            <h2 style={{textAlign:"center"}}>Member List</h2>
             <AdminMemberList InitData={currentPosts(InitData)} />
             <Pagination postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage}/>
         </div>
         
-    )
+    )   
 }
 
 export default withRouter(AdminMemberPage);

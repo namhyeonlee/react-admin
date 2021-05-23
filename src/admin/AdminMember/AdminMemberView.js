@@ -101,9 +101,9 @@ function AdminMemberView({ match }, props) {
             margin: "auto"
         }}> 
            
-            <h1>상세페이지</h1>
+            <h2 style={{textAlign:"center"}}>Member List view</h2>
             <form
-                style={{ display: "flex", flexDirection: "column", width: "50%" }}
+                style={{ display: "flex", flexDirection: "column", width: "50%", margin:"auto"}}
                 onSubmit={onSubmitHandler}
             >
                 <label>email</label>
@@ -121,7 +121,7 @@ function AdminMemberView({ match }, props) {
                 <button type="submit" style={{ width: "130px", marginTop:"10px" }}>수정하기</button>
             </form>
 
-            <div>
+            <div className="adminBoardViewButton">
                 
                 <button onClick={onRemoveHandler} style={{width:"130px", marginTop:"10px"}}>삭제하기</button>
                 <button style={{width:"130px", marginTop:"10px", display:"block"}}><Link to="/adminMemberPage">목록</Link></button>

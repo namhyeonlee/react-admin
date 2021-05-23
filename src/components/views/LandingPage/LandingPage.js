@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import BoardMainPage from "../../boardPage/BoardMainPage";
 import axios from 'axios'
 import Pagination from "../../boardPage/Pagination";
+import Nav from '../LandingPage/Nav'
 
 
 
@@ -70,6 +71,8 @@ function LandingPage(props) {
 
 
   return (
+    <>
+      <Nav></Nav>
     <div
       style={{
        
@@ -78,13 +81,14 @@ function LandingPage(props) {
         width: "100%",
         height: "100vh",
       }}>
-      <div style={{display:"flex", justifyContent:"space-between"}}>
+      {/* <div style={{display:"flex", justifyContent:"space-between"}}>
         
-      </div>
+      </div> */}
       <BoardMainPage isLogin={isLogin} InitData={currentPosts(InitData)}/>
       <Pagination className="pagination" postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage} />
   
-    </div>
+      </div>
+      </>
   );
 }
 

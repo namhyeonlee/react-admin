@@ -70,8 +70,8 @@ function Boardupdate({ match }) {
                 <p>writer: {writer}</p>
                 {sessionStorage.getItem('email')?<button type="submit" style={{width:"130px"}}>수정하기</button>:null}
             </form>
-            <button style={{width:"130px", marginTop:"10px"}}>
-                <Link to="/">목록으로 돌아가기</Link>
+            <button style={{width:"130px", margin:"10px 345px"}}>
+                <Link to="/" style={{ textDecoration: 'none',color:"black"}}>목록으로 돌아가기</Link>
             </button>
         </div>
         

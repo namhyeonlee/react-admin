@@ -11,7 +11,7 @@ function Nav(props) {
   }
     return (
         <nav className="nav">
-         <Link to="/"><h2>logo</h2></Link>
+         <Link to="/" style={{ textDecoration: 'none',color:"black"}}><h2>logo</h2></Link>
        
 
         <div style={{ marginLeft: "30px" }}>
@@ -22,8 +22,8 @@ function Nav(props) {
       
         : (
           <>
-            <button style={{marginRight:"20px"}}><Link to="/login">로그인</Link></button>
-            <button><Link to="/register">회원가입</Link></button>
+            <button style={{marginRight:"20px"}}><Link to="/login" style={{ textDecoration: 'none',color:"black"}}>로그인</Link></button>
+            <button><Link to="/register" style={{ textDecoration: 'none',color:"black"}}>회원가입</Link></button>
             </>
             )}
           </div>

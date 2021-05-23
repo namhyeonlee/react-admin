@@ -87,7 +87,7 @@ function LoginPage(props) {
 
       <button onClick={onFindidHandler} style={{marginBottom:"10px", display:"block",  width:"153px"}}>아이디 찾기</button>
         <button onClick={onFindpasswordHandler} style={{marginBottom:"10px", display:"block",  width:"153px"}}>비밀번호 찾기</button>
-        <button style={{ width:"153px"}}><Link to="/">home</Link></button>
+        <button style={{ width:"153px"}}><Link to="/" style={{ textDecoration: 'none',color:"black"}}>home</Link></button>
         </div>
     </div>
   );

@@ -77,7 +77,7 @@ function PostView({ match }, props) {
                     <button><Link to="/">목록</Link></button>
                 </div>
             ) :
-                <button style={{marginTop:"20px"}}><Link to="/" >목록</Link></button>
+                <button style={{margin:"10px 340px"}}><Link to="/" >목록</Link></button>
                 }
               
             

@@ -27,7 +27,7 @@ function BoardMainPage(props) {
                         <tr key={i}>
                           
                          <td>
-                                <Link to={`/postView/${rowData.idx}`}>
+                                <Link to={`/postView/${rowData.idx}`} style={{ textDecoration: 'none',color:"black"}}>
                                     {rowData.order}
                                 </Link>
                                 
@@ -44,7 +44,7 @@ function BoardMainPage(props) {
                 </tbody>
                 
             </table>
-            {sessionStorage.getItem('email')?<button style={{marginTop:"10px", float:"right"}}><Link to="/boardInsert">글쓰기</Link></button>:null}
+            {sessionStorage.getItem('email')?<button style={{margin:"10px 100px",float:"right"}}><Link to="/boardInsert" style={{ textDecoration: 'none',color:"black"}}>글쓰기</Link></button>:null}
             
         </div>
     )

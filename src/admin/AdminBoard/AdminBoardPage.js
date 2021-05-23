@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import axios from 'axios';
 import AdminBoardList from "./AdminBoardList";
 import Pagination from '../../components/boardPage/Pagination';
+import AdminNav from '../AdminLandingPage/AdminNav';
 
 function AdminBoardPage() {
 
@@ -56,8 +57,8 @@ const [InitData, setInitData] = useState([{
 
     return (
         <div>
-            <h1>AdminBoardPage</h1>
-            <button><Link to="/adminMemberPage">회원관리</Link></button>
+            <AdminNav/>
+            <h2 style={{textAlign:"center"}}>AdminBoardPage</h2>
             <AdminBoardList InitData={currentPosts(InitData)} />
             <Pagination postsPerPage={postsPerPage} totalPosts={InitData.length} paginate={setCurrentPage}/>
             </div>
