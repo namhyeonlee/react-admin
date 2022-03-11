@@ -1,26 +1,13 @@
-## join, login, find id and passward, crud board built with react.js, node.js, sql
+## react BolierPlate app
 
 ### function
-* register process
-* login process
-* find id, passward process
-* Password Hash
-* crud board
+- [x] 회원가입
+- [x] 로그인
+- [x] 아이디, 비밀번호 찾기
+- [x] 게시판
+- [x] 게시판 상세페이지
+- [x] 게시판 수정
+- [x] 게시판 삭제
 
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
 
 
