@@ -1,6 +1,12 @@
 ## react BolierPlate app
 
-### function
+### 기술
+- [x] React
+- [x] MySQL
+- [x] Node.js
+
+
+### 기능
 - [x] 회원가입
 - [x] 로그인
 - [x] 아이디, 비밀번호 찾기
